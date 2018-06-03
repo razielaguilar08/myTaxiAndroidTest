@@ -1,30 +1,27 @@
-package com.mytaxi.android_demo.activities;
+package com.mytaxi.android_demo;
 
-import android.support.test.espresso.Espresso;
 import android.Manifest;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.espresso.matcher.RootMatchers;
+import android.support.test.espresso.matcher.ViewMatchers;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.rule.GrantPermissionRule;
 import android.support.test.runner.AndroidJUnit4;
-import android.support.test.espresso.matcher.ViewMatchers;
-import com.mytaxi.android_demo.R;
-import android.util.Log;
-import android.support.test.espresso.assertion.ViewAssertions;
-import android.support.test.espresso.contrib.DrawerActions;
-import android.support.test.espresso.matcher.RootMatchers;
+
+import com.mytaxi.android_demo.activities.MainActivity;
+
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import static android.support.test.espresso.action.ViewActions.scrollTo;
+
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.action.ViewActions.doubleClick;
-import static android.support.test.espresso.action.ViewActions.closeSoftKeyboard;
+import static android.support.test.espresso.action.ViewActions.scrollTo;
 import static android.support.test.espresso.action.ViewActions.typeText;
-import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 import static org.hamcrest.CoreMatchers.is;
@@ -60,7 +57,7 @@ public class MyTaxiAndroidTest {
     }
 
     @Test
-    public void myTaxiLoginTest() throws InterruptedException  {
+    public void myTaxiLoginTest() throws InterruptedException {
 
         //Login with provided credentials
         onView(ViewMatchers.withId(R.id.edt_username)).perform(typeText(username));
@@ -69,17 +66,22 @@ public class MyTaxiAndroidTest {
         //perform button click
         onView(ViewMatchers.withId(R.id.btn_login)).perform(doubleClick());
         Thread.sleep(10000);
+    }
 
-        //Searching for word Sa, then Sarah Friedrich
-        onView((ViewMatchers.withId(R.id.textSearch))).perform(typeText(firstSearch) );
+    @Test
+    public void myTaxiCallTest() throws InterruptedException {
 
-        //, closeSoftKeyboard());
+        //typing the word Sa
+        onView((ViewMatchers.withId(R.id.textSearch))).perform(typeText(firstSearch));
+
         Thread.sleep(10000);
-        onView(withText(secondSearch)).inRoot(RootMatchers.withDecorView(not(is(mActivity.getWindow().getDecorView())))).perform(scrollTo()).perform(doubleClick());
+
+        //Searching and clicking on Sarah Friedrich
+        onView(withText(secondSearch)).inRoot(RootMatchers.withDecorView(not(is(mActivity.getWindow().
+                getDecorView())))).perform(scrollTo()).perform(doubleClick());
 
         //Clicking on Call Button
         onView(withId(R.id.fab)).perform(click());
-
     }
 
     @After
