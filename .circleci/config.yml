@@ -17,8 +17,6 @@ jobs:
           paths:
             - ~/.gradle
           key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-
       - run:
           name: Setup emulator
           command: sdkmanager "system-images;android-22;default;armeabi-v7a" && echo "no" | avdmanager create avd -n test -k "system-images;android-22;default;armeabi-v7a"
@@ -38,7 +36,6 @@ jobs:
       - run:
           name: Run Espresso Test
           command:  ./gradlew connectedAndroidTest --stacktrace
-
 
       - store_artifacts:
           path: app/build/reports
