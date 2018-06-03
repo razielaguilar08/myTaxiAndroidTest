@@ -13,9 +13,11 @@ import com.mytaxi.android_demo.activities.MainActivity;
 
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.junit.runners.MethodSorters;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
@@ -29,6 +31,7 @@ import static org.hamcrest.core.IsNot.not;
 import static org.junit.Assert.assertEquals;
 
 @RunWith(AndroidJUnit4.class)
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MyTaxiAndroidTest {
 
     @Rule
@@ -49,7 +52,7 @@ public class MyTaxiAndroidTest {
     }
 
     @Test
-    public void useAppContext() throws Exception {
+    public void t1_useAppContext() throws Exception {
         // Context of the app under test.
         Context appContext = InstrumentationRegistry.getTargetContext();
 
@@ -57,7 +60,7 @@ public class MyTaxiAndroidTest {
     }
 
     @Test
-    public void myTaxiLoginTest() throws InterruptedException {
+    public void t2_myTaxiLoginTest()  {
 
         //Login with provided credentials
         onView(ViewMatchers.withId(R.id.edt_username)).perform(typeText(username));
@@ -65,12 +68,13 @@ public class MyTaxiAndroidTest {
 
         //perform button click
         onView(ViewMatchers.withId(R.id.btn_login)).perform(doubleClick());
-        Thread.sleep(10000);
+
     }
 
     @Test
-    public void myTaxiCallTest() throws InterruptedException {
+    public void t3_myTaxiCallTest() throws InterruptedException {
 
+        Thread.sleep(10000);
         //typing the word Sa
         onView((ViewMatchers.withId(R.id.textSearch))).perform(typeText(firstSearch));
 
